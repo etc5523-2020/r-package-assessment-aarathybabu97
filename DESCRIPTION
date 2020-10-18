@@ -1,16 +1,31 @@
-Package: yourPkg
-Title: What the Package Does (One Line, Title Case)
+Package: uscovid
+Title: Overview of COVID-19 on a global scale with focus on United States of America.
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Aarathy",
+           family = "Babu",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+           email = "abab0012@student.monash.edu")
+Description: The package deploys a shiny app that showcases an overview of the data on COVID-19 on a global scale and explores the test results as well as different dimensions of the effect of the pandemic in the United States of America.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports: 
+    here,
+    shinythemes,
+    plotly,
+    readr,
+    reactable,
+    leaflet,
+    USAboundaries,
+    tidycovid19,
+    htmltools,
+    lubridate,
+    geojsonR,
+    tidyverse
+Depends: 
+    shiny
+Suggests: 
+    testthat
