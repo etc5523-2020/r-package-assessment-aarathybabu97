@@ -1,4 +1,7 @@
 
+source("uifunctions.R")
+
+
 library(tidyverse)
 library(readr)
 library(plotly)
@@ -216,10 +219,10 @@ ui <- fluidPage(
       fluidRow(
         sidebarLayout(
           sidebarPanel(h3("COVID-19 Cases Worldwide"),
-                       selectInput(
+                       sinput(
                          "monthname",
                          "Select Month",
-                         list$month,selected="Oct"
+                         list$month
                        ), 
                        br(),p(
                          "The interactive table represents the worldwide COVID-19 cases,deaths and recoveries each month and allows the user to search for the country and month of their choice \n as well as arrange them in the order using the parameters of their choice. For example, Confirmed Cases.\n User can also view some information like life expectancy, population density etc on the countries by selecting them.",
@@ -249,11 +252,10 @@ ui <- fluidPage(
           leafletOutput("leafmap", height = "600px")),
         fluidRow(
           column(6,
-            selectInput(
+            sinput(
               "statename",
               "Select State",
-              positive_cases$state_name ,
-              selected = "California" 
+              positive_cases$state_name 
             ),
             br(),
             p("The interactive map showcases the total number of positive cases in each state of United States by hovering over each state where as the point graph depicts the COVID-19 tests conducted in each state during a month.The user can see the percentage of positive cases in that state and during a particular month by clicking on its corresponding point and choosing a state.",
@@ -285,7 +287,7 @@ ui <- fluidPage(
           
         ),
         mainPanel(
-          selectInput("dataset", "Select a parameter", as.list(choices)),
+          sinput("dataset", "Select a parameter", as.list(choices)),
           plotOutput("chart"),
           verbatimTextOutput("second"),
           plotOutput("secondplot")))
