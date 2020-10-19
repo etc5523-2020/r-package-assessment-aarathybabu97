@@ -7,30 +7,20 @@
 #' @export
 selectin <- function(id,label,choice) {
   
-  library(tidyverse)
-  library(readr)
-  library(plotly)
-  library(reactable)
-  library(shiny)
-  library(leaflet)
-  library(shinythemes)
-  library(USAboundaries)
-  library(tidycovid19)
-  library(htmltools)
-  library(readxl)
-  library(geojsonR)
-  library(lubridate)
+ 
   
   
   #state <- read_csv(here::here("data/overall-state.csv.gz"))
-  allstates <- read_csv(here::here("data/allstates.csv"))
+  allstates <- readr::read_csv(here::here("data/allstates.csv"))
   statesabb <- USAboundaries::state_codes
-  ccode <- read_csv(here::here("data/codes.csv"))
-  Gender <- read_csv(here::here("data/gender.csv"))
-  Age <- read_csv(here::here("data/agegroups.csv"))
-  Race <- read_csv(here::here("data/race.csv"))
-  df <- download_merged_data(cached = TRUE, silent = TRUE)
-  
+  ccode <- readr::read_csv(here::here("data/codes.csv"))
+  Gender <- readr::read_csv(here::here("data/gender.csv"))
+  Age <- readr::read_csv(here::here("data/agegroups.csv"))
+  Race <- readr::read_csv(here::here("data/race.csv"))
+  df <- tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
+  df$country<- dplyr::recode(df$country,
+                      "Curaçao"="Curacao",
+                      "Côte d’Ivoire"="Cote dIvoire")
   
   cols2 <- c("#233d4d", "#fe7f2d", "#fcca46","#a1c181","#083d77","#513b56","#98ce00","#348aa7","#840032","#db3a34")
   
@@ -43,7 +33,7 @@ selectin <- function(id,label,choice) {
     rename(category = `Race/Ethnicity`)
   
   
-  pop <- read_csv(here::here("data/pop.csv"))
+  pop <- readr::read_csv(here::here("data/pop.csv"))
   
   pop_data <- Race %>%
     left_join(pop,by=c("category"="race")) %>%
@@ -150,10 +140,6 @@ selectin <- function(id,label,choice) {
   
   #map
 
-  
-  
-  library(leaflet)
-  
   
   
   

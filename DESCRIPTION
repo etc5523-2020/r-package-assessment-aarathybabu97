@@ -1,5 +1,5 @@
 Package: uscovid
-Title: Overview of COVID-19 on a global scale with focus on United States of America.
+Title: Overview of COVID-19 on a global scale with focus on United States of America
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Aarathy",
@@ -14,18 +14,20 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
     here,
-    shinythemes,
-    plotly,
     readr,
-    reactable,
-    leaflet,
     USAboundaries,
     tidycovid19,
-    htmltools,
-    lubridate,
     geojsonR,
-    tidyverse
+    sf,
+    dplyr 
 Depends: 
-    shiny
+    shiny,
+    tidyverse,
+    shinythemes,
+    lubridate,
+    htmltools,
+    leaflet,
+    reactable,
+    plotly
 Suggests: 
     testthat

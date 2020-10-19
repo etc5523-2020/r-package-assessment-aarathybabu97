@@ -1,32 +1,16 @@
 
-source("uifunctions.R")
 
-
-library(tidyverse)
-library(readr)
-library(plotly)
-library(reactable)
-library(shiny)
-library(leaflet)
-library(shinythemes)
-library(USAboundaries)
-library(tidycovid19)
-library(htmltools)
-library(readxl)
-library(geojsonR)
-library(lubridate)
-
-
-#state <- read_csv(here::here("data/overall-state.csv.gz"))
-allstates <- read_csv(here::here("extdata/allstates.csv"))
+allstates <- readr::read_csv(here::here("extdata/allstates.csv"))
 statesabb <- USAboundaries::state_codes
-ccode <- read_csv(here::here("extdata/codes.csv"))
-Gender <- read_csv(here::here("extdata/gender.csv"))
-Age <- read_csv(here::here("extdata/agegroups.csv"))
-Race <- read_csv(here::here("extdata/race.csv"))
-df <- download_merged_data(cached = TRUE, silent = TRUE)
+ccode <- readr::read_csv(here::here("extdata/codes.csv"))
+Gender <- readr::read_csv(here::here("extdata/gender.csv"))
+Age <- readr::read_csv(here::here("extdata/agegroups.csv"))
+Race <- readr::read_csv(here::here("extdata/race.csv"))
+df <- tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
 
-
+df$country<- dplyr::recode(df$country,
+                    "Curaçao"="Curacao",
+                    "Côte d’Ivoire"="Cote dIvoire")
 cols2 <- c("#233d4d", "#fe7f2d", "#fcca46","#a1c181","#083d77","#513b56","#98ce00","#348aa7","#840032","#db3a34")
 
 
@@ -146,17 +130,17 @@ list <- world %>%
 
 #map
 
-pal <- colorNumeric("viridis", domain = states$density)
+pal <- leaflet::colorNumeric("viridis", domain = states$density)
 labels <- sprintf("<strong>%s</strong><br/>%g Cases",
                   states$name,
                   states$density) %>% lapply(htmltools::HTML)
 
 
-library(leaflet)
 
 
 
-map <- leaflet(states, options = leafletOptions(minZoom = 3)) %>%
+
+map <- leaflet::leaflet(states, options = leafletOptions(minZoom = 3)) %>%
   setView(-110.233256, 40, 4) %>%
   addProviderTiles("MapBox",
                    options = providerTileOptions(
@@ -310,7 +294,7 @@ server <- function(input, output, session) {
  
   
   output$source<- renderText({
-    source <- paste("Image Source: The Economic Times")
+    source <- printext("Image Source: The Economic Times")
     source})
   
   output$table <- renderReactable({
@@ -318,7 +302,7 @@ server <- function(input, output, session) {
     newworld <-   world %>%
       filter(month==input$monthname)%>%
       select(-month)
-    reactable(
+    reactable::reactable(
       newworld,
       resizable = TRUE,
       showPageSizeOptions = TRUE,
@@ -427,31 +411,12 @@ server <- function(input, output, session) {
     
     
     num <- selected()
-    region <- a %>%
-      filter(id %in% num) %>%
-      ungroup() %>%
-      select(region)
-    
-    popdensity <-  a %>%
-      filter(id %in% num) %>%
-      ungroup() %>%
-      select(pop_density)
-    popu <-  a %>%
-      filter(id %in% num) %>%
-      ungroup() %>%
-      select(population)
-    countryname <-  a %>%
-      filter(id %in% num) %>%
-      ungroup() %>%
-      select(country)
-    countrynlife <-  a %>%
-      filter(id %in% num) %>%
-      ungroup() %>%
-      select(life_expectancy)
-    countrygdp <-  a %>%
-      filter(id %in% num) %>%
-      ungroup() %>%
-      select(gdp_capita)
+    region <- choosedat(a,num,"region")
+    popdensity <- choosedat(a,num,"pop_density")
+    popu <- choosedat(a,num,"population")
+    countryname <-choosedat(a,num,"country")
+    countrynlife <- choosedat(a,num,"life_expectancy")
+    countrygdp <- choosedat(a,num,"gdp_capita")
     textregion <-
       paste(
         "The selected country,",
@@ -491,7 +456,7 @@ server <- function(input, output, session) {
       theme_minimal() +
       theme(plot.title = element_text(hjust = 0.5))
     
-    ggplotly(figure)
+    plotly::ggplotly(figure)
     
   })
   output$tests <- renderText({
@@ -499,7 +464,7 @@ server <- function(input, output, session) {
     if (is.null(d))
       return(NULL)
     
-    paste("Out of all the tests conducted each month, the percentage of COVID-19\nnegative cases is more than that of positive cases.This shows that not all people who show\nsymptoms or come in risk of COVID-19 tests positive.")
+    printext("Out of all the tests conducted each month, the percentage of COVID-19\nnegative cases is more than that of positive cases.This shows that not all people who show\nsymptoms or come in risk of COVID-19 tests positive.")
     
     
   })
@@ -546,7 +511,7 @@ server <- function(input, output, session) {
   output$chart <- renderPlot({
     dataset <- get(input$dataset)
     
-    dataset %>%
+      dataset %>%
       ggplot(aes(y=reorder(category,Percentage), x=Percentage,fill=category)) +
       geom_col()+
       scale_fill_manual(values = cols2)+
@@ -569,15 +534,15 @@ server <- function(input, output, session) {
     dataset <- get(input$dataset)
     
     if(all.equal(dataset,Race)==TRUE)(
-      printext <- paste("People of White Non-Hispanic seem to be more among the COVID-19 positive cases but does this mean,\nWhite race is more affected by this pandemic? No.The white population constitute around 60 % of USA's population.\nThe chart below depicts the intensity of COVID-19 among each diverse population.\nIt can be seen that around 2% of Native Hawaiian community and\nmore than 1% each of Latino and Black community got more affected by COVID-19 compared to White community where\nless than 0.75% people were affected")
+      printext("People of White Non-Hispanic seem to be more among the COVID-19 positive cases but does this mean,\nWhite race is more affected by this pandemic? No.The white population constitute around 60 % of USA's population.\nThe chart below depicts the intensity of COVID-19 among each diverse population.\nIt can be seen that around 2% of Native Hawaiian community and\nmore than 1% each of Latino and Black community got more affected by COVID-19 compared to White community where\nless than 0.75% people were affected")
     )else if(all.equal(dataset,Gender)==TRUE)
       (
-        printext <- paste("Among the COVID-19 positive patients,number of Females is slightly higher than that of men.")
+        printext("Among the COVID-19 positive patients,number of Females is slightly higher than that of men.")
         
       )
     else if(all.equal(dataset,Age)==TRUE)
       (
-        printext <- paste("Around 23 % the COVID-19 positive cases are people between the age 18-29 years of age where as\naround 20% of the cases are of people of age group 50-64.")
+        printext("Around 23 % the COVID-19 positive cases are people between the age 18-29 years of age where as\naround 20% of the cases are of people of age group 50-64.")
         
       )
 
@@ -585,8 +550,8 @@ server <- function(input, output, session) {
   output$secondplot <- renderPlot({
     dataset <- get(input$dataset)
     
-    if(all.equal(dataset,Race)==TRUE)(
-      pop_data %>%
+      if(all.equal(dataset,Race)==TRUE)(
+        pop_data %>%
         ggplot(aes(y=reorder(category,prop), x=prop,fill=category)) +
         geom_col()+
         scale_fill_manual(values = cols2)+
