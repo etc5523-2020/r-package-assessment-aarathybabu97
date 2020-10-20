@@ -42,7 +42,7 @@ library(uscovid)
 #use function launch_app()
 launch_app() 
 
-```
+``` 
 
 The function,**launch_app()** from the package, launches the web application *COVID-19 in United States*. The app aims to display the figures on confirmed cases, deaths and recoveries around the World with a focus on United States, which is one of the worst affected countries in the world. It also showcases the testing rate over the months in each state of US as well as the demographic trends of COVID-19 positive cases in US. 
 
