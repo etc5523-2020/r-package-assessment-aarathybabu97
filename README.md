@@ -1,6 +1,7 @@
 
 # Your Package Name
 <!-- badges: start -->
+[![R build status](https://github.com/etc5523-2020/r-package-assessment-aarathybabu97/workflows/R-CMD-check/badge.svg)](https://github.com/etc5523-2020/r-package-assessment-aarathybabu97/actions)
 <!-- badges: end -->
 
 The goal of _uscovid_ is to ...
