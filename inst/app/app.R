@@ -411,12 +411,12 @@ server <- function(input, output, session) {
     
     
     num <- selected()
-    region <- choosedat(a,num,"region")
-    popdensity <- choosedat(a,num,"pop_density")
-    popu <- choosedat(a,num,"population")
-    countryname <-choosedat(a,num,"country")
-    countrynlife <- choosedat(a,num,"life_expectancy")
-    countrygdp <- choosedat(a,num,"gdp_capita")
+    region <- choosevar(a,num,"region")
+    popdensity <- choosevar(a,num,"pop_density")
+    popu <- choosevar(a,num,"population")
+    countryname <-choosevar(a,num,"country")
+    countrynlife <- choosevar(a,num,"life_expectancy")
+    countrygdp <- choosevar(a,num,"gdp_capita")
     textregion <-
       paste(
         "The selected country,",

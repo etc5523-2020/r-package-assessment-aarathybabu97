@@ -2,10 +2,13 @@
 % Please edit documentation in R/serverfunction.R
 \name{printext}
 \alias{printext}
-\title{server stuff}
+\title{Print Strings}
 \usage{
 printext(text)
 }
+\arguments{
+\item{text}{The string required to be printed}
+}
 \description{
-random stuff
+Prints strings as texts.
 }

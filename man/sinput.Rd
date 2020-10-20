@@ -2,10 +2,21 @@
 % Please edit documentation in R/uifunctions.R
 \name{sinput}
 \alias{sinput}
-\title{ui stuff}
+\title{User controlled drop down menu}
 \usage{
 sinput(id, label, choice)
 }
+\arguments{
+\item{id}{The input id that can be used to contain the value selected.}
+
+\item{label}{The label displayed over the menu. Use NULL for no label.}
+
+\item{choice}{The list of values to be selected from.}
+}
+\value{
+Returns a drop down menu compatible with shiny r package.
+}
 \description{
-random stuff
+Calls selectInput() function from shiny r package where necessary which in turn creates a drop down menu from which values can be selected.
+The function is relative to the shiny app enclosed in the package, therefore it is not advisable for the package user to interact with it.
 }

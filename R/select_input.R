@@ -1,51 +1,57 @@
-#' refactor ui
+#' Display of COVID-19 cases around the world and the testing rates in USA 
 #'
 #'
-#' random
+#' Displays the COVID-19 cases around the world and the testing rates in US states depending on the parameter selected. 
 #' 
+#' @details The parameters required for the function to display the global COVID-19 cases for each month is "world" along with monthlist where as parameters "usa" along with statelist displays the testing rates over the months in each state of US.
+#' 
+#' @param id The name of the figures to be displayed in string format. For example, "world" or "usa"
+#' 
+#' @param choice The required list of possible choices of months (monthlist) and states in US (statelist), the user could select from to display either the table depicting figures on COVID cases worldwide or the testing rates in a state of US.
+#' 
+#'@examples selectin("world",monthlist)
+#'@examples selectin("usa",statelist)
+#' 
+#' @return The function deploys a shiny app which the user can interact with
 #'
 #' @export
-selectin <- function(id,label,choice) {
+selectin <- function(id,choice) {
+  
+ load("data/allstates.RData")
+  #allstates <- readr::read_csv(here::here("data/allstates.csv"))
+  statesabb <- USAboundaries::state_codes
+  #ccode <- readr::read_csv(here::here("data/codes.csv"))
+load("data/ccode.RData")
+  df <-
+    tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
+  df$country <- dplyr::recode(df$country,
+                              "Curaçao" = "Curacao",
+                              "Côte d’Ivoire" = "Cote dIvoire")
+  
+  cols2 <-
+    c(
+      "#233d4d",
+      "#fe7f2d",
+      "#fcca46",
+      "#a1c181",
+      "#083d77",
+      "#513b56",
+      "#98ce00",
+      "#348aa7",
+      "#840032",
+      "#db3a34"
+    )
+  
   
  
   
-  
-  #state <- read_csv(here::here("data/overall-state.csv.gz"))
-  allstates <- readr::read_csv(here::here("data/allstates.csv"))
-  statesabb <- USAboundaries::state_codes
-  ccode <- readr::read_csv(here::here("data/codes.csv"))
-  Gender <- readr::read_csv(here::here("data/gender.csv"))
-  Age <- readr::read_csv(here::here("data/agegroups.csv"))
-  Race <- readr::read_csv(here::here("data/race.csv"))
-  df <- tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
-  df$country<- dplyr::recode(df$country,
-                      "Curaçao"="Curacao",
-                      "Côte d’Ivoire"="Cote dIvoire")
-  
-  cols2 <- c("#233d4d", "#fe7f2d", "#fcca46","#a1c181","#083d77","#513b56","#98ce00","#348aa7","#840032","#db3a34")
-  
-  
-  Gender <- Gender %>%
-    rename(category = Sex)
-  Age <- Age %>%
-    rename(category = "Age Group")
-  Race <-  Race %>%
-    rename(category = `Race/Ethnicity`)
-  
-  
-  pop <- readr::read_csv(here::here("data/pop.csv"))
-  
-  pop_data <- Race %>%
-    left_join(pop,by=c("category"="race")) %>%
-    mutate(prop=(Count/population)*100)
-  
   df <- df %>%
-    mutate(month=month(date,label = T),
-           year=year(date))
+    mutate(month = month(date, label = T),
+           year = year(date))
   
   
   allworld <- df %>%
-    filter(year=="2020")%>%
+    filter(year == "2020") %>%
     select(
       country,
       date,
@@ -65,7 +71,7 @@ selectin <- function(id,label,choice) {
   
   world <-  allworld %>%
     
-    group_by(country,month) %>%
+    group_by(country, month) %>%
     filter(!is.na(confirmed)) %>%
     summarise(
       Confirmed = max(confirmed),
@@ -77,13 +83,16 @@ selectin <- function(id,label,choice) {
   
   
   a <-  allworld %>%
-    group_by(country,month,
-             life_expectancy,
-             income,
-             region,
-             pop_density,
-             population,
-             gdp_capita) %>%
+    group_by(
+      country,
+      month,
+      life_expectancy,
+      income,
+      region,
+      pop_density,
+      population,
+      gdp_capita
+    ) %>%
     filter(!is.na(confirmed)) %>%
     summarise(
       Confirmed = max(confirmed),
@@ -97,7 +106,7 @@ selectin <- function(id,label,choice) {
   # map
   
   
-  states <- here::here("data/us.geojson") %>% sf::st_read()
+
   
   positive_cases <- allstates %>%
     select(date, state, positive, positiveIncrease) %>%
@@ -132,62 +141,56 @@ selectin <- function(id,label,choice) {
     mutate(month = as.character(month))
   
   list <- world %>%
-    ungroup()%>%
-    select(month)%>%
+    ungroup() %>%
+    select(month) %>%
     distinct(month)
   
   
-  
-  #map
-
-  
-  
-  
-  
-  cmonth <- c("Jan", "Feb", "Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
-cstate <-  as.list( positive_cases$state_name)
-
-
-
-sinput <- function(id,label,choice){
-  
-  selectInput(id,label, choice)
+  monthlist <-
+    c("Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct")
+  statelist <-  as.list(positive_cases$state_name)
   
   
-}
-   
-printer <- function(id){
- print(id)
-}
-
   
-show <- function(id){
- return(id)
-}
-showname <- show(id)
+  sinput <- function(id,choice) {
+    selectInput(inputId=id, label=NULL,choices=choice)
+    
+    
+  }
   
-
-
-
+  printer <- function(id) {
+    print(id)
+  }
+  
+  
+  show <- function(id) {
+    return(id)
+  }
+  showname <- show(id)
+  
+  
+  
+  
   shinyApp(
-    
-  
-  ui = fluidPage(
-    
-    fluidRow(
+    ui = fluidPage(fluidRow(
       sidebarLayout(
-        sidebarPanel(
-         
-          if (showname=="monthname")
-          {
-          sinput(id,label,cmonth)}
-          
-          else 
-          sinput(id,label,cstate)
-          
-        ),
+        sidebarPanel(if (showname == "world")
+        {
+          sinput(id,monthlist)
+        }
+        
+        else
+          sinput(id, statelist)),
         mainPanel (
-          
           reactableOutput("table"),
           plotlyOutput("facetline"),
           plotOutput("chart")
@@ -195,147 +198,136 @@ showname <- show(id)
         )
         
         
-        ))
-       
-
+      )
+    )),
+    
+    
+    
+    server = function(input, output, session) {
+      pr <-  printer(id)
       
-    ),
-  
-  
-  
-  server =function(input, output, session) {
-    
-  pr <-  printer(id)
-    
-   if (pr=="monthname")
-   {
-    
-     output$table <- renderReactable({
-       
-       newworld <-   world %>%
-         filter(month==input$monthname)%>%
-         select(-month)
-    reactable(
-         newworld,
-         resizable = TRUE,
-         showPageSizeOptions = TRUE,
-         onClick = "select",
-         pagination = T,
-         defaultSelected = 1,
-         selection = "single",
-         defaultSorted = "Confirmed",
-         defaultSortOrder = "desc",
-         defaultColDef = colDef(headerClass = "header", align = "left"),
-         columns = list(
-           country = colDef(
-             name = "Country",
-             width = 150,
-             filterable = TRUE
-           ) ,
-           Confirmed = colDef(
-             name = "Confirmed Cases",
-             cell = function(value) {
-               width <- paste0(value * 100 / max(world$Confirmed), "%")
-               value <-
-                 format(value, big.mark = ",")
-               value <-
-                 format(value, width = 10, justify = "right")
-               bar <- div(
-                 class = "bar-chart",
-                 style = list(marginRight = "6px"),
-                 div(
-                   class = "bar",
-                   style = list(width = width, backgroundColor = "#3F5661")
-                 )
-               )
-               div(class = "bar-cell", span(class = "number", value), bar)
-             }
-           ),
-           Recovered = colDef(
-             name = "No. of Recovered Cases",
-             cell = function(value) {
-               width <-
-                 paste0(value * 100 / max(world$Recovered), "%")
-               value <-
-                 format(value, big.mark = ",")
-               value <-
-                 format(value, width = 10, justify = "right")
-               bar <- div(
-                 class = "bar-chart",
-                 style = list(marginRight = "6px"),
-                 div(
-                   class = "bar",
-                   style = list(width = width, backgroundColor = "#d62828")
-                 )
-               )
-               div(class = "bar-cell", span(class = "number", value), bar)
-             }
-           ),
-           Deaths = colDef(
-             name = "No. of Deaths",
-             cell = function(value) {
-               width <-
-                 paste0(value * 100 / max(world$Deaths), "%")
-               value <-
-                 format(value, big.mark = ",")
-               value <-
-                 format(value, width = 10, justify = "right")
-               bar <- div(
-                 class = "bar-chart",
-                 style = list(marginRight = "6px"),
-                 div(
-                   class = "bar",
-                   style = list(width = width, backgroundColor = "#2a9d8f")
-                 )
-               )
-               div(class = "bar-cell", span(class = "number", value), bar)
-             }
-           )
-         )
-       )
-       
+      if (pr == "world")
+      {
+        output$table <- renderReactable({
+          newworld <-   world %>%
+            filter(month == input$world) %>%
+            select(-month)
+          reactable(
+            newworld,
+            resizable = TRUE,
+            showPageSizeOptions = TRUE,
+            #onClick = "select",
+            pagination = T,
+            #defaultSelected = 1,
+            #selection = "single",
+            defaultSorted = "Confirmed",
+            defaultSortOrder = "desc",
+            defaultColDef = colDef(headerClass = "header", align = "left"),
+            columns = list(
+              country = colDef(
+                name = "Country",
+                width = 150,
+                filterable = TRUE
+              ) ,
+              Confirmed = colDef(
+                name = "Confirmed Cases",
+                cell = function(value) {
+                  width <- paste0(value * 100 / max(world$Confirmed), "%")
+                  value <-
+                    format(value, big.mark = ",")
+                  value <-
+                    format(value, width = 10, justify = "right")
+                  bar <- div(
+                    class = "bar-chart",
+                    style = list(marginRight = "6px"),
+                    div(
+                      class = "bar",
+                      style = list(width = width, backgroundColor = "#3F5661")
+                    )
+                  )
+                  div(class = "bar-cell", span(class = "number", value), bar)
+                }
+              ),
+              Recovered = colDef(
+                name = "No. of Recovered Cases",
+                cell = function(value) {
+                  width <-
+                    paste0(value * 100 / max(world$Recovered), "%")
+                  value <-
+                    format(value, big.mark = ",")
+                  value <-
+                    format(value, width = 10, justify = "right")
+                  bar <- div(
+                    class = "bar-chart",
+                    style = list(marginRight = "6px"),
+                    div(
+                      class = "bar",
+                      style = list(width = width, backgroundColor = "#d62828")
+                    )
+                  )
+                  div(class = "bar-cell", span(class = "number", value), bar)
+                }
+              ),
+              Deaths = colDef(
+                name = "No. of Deaths",
+                cell = function(value) {
+                  width <-
+                    paste0(value * 100 / max(world$Deaths), "%")
+                  value <-
+                    format(value, big.mark = ",")
+                  value <-
+                    format(value, width = 10, justify = "right")
+                  bar <- div(
+                    class = "bar-chart",
+                    style = list(marginRight = "6px"),
+                    div(
+                      class = "bar",
+                      style = list(width = width, backgroundColor = "#2a9d8f")
+                    )
+                  )
+                  div(class = "bar-cell", span(class = "number", value), bar)
+                }
+              )
+            )
+          )
+          
+          
+          
+          
+          
+        })
+        
+      }
+      if (pr == "usa")
+      {
+        output$facetline <- renderPlotly({
+          options(scipen = 999)
+          figure <-
+            months_tests %>% filter(state_name == input$usa) %>%
+            
+            ggplot(aes(x = reorder(month, monthnum), y = tests)) +
+            geom_point(color = "steelblue") + xlab("Month") +
+            scale_y_log10() +
+            ylab("Cumulative Tests (log10)") + ggtitle("Total COVID-19 Tests") +
+            theme_minimal() +
+            theme(plot.title = element_text(hjust = 0.5))
+          
+          ggplotly(figure)
+          
+          
+        })
+      }
       
- 
       
       
-    })
-    
-   }
-     if (pr=="statename")
-     {
-       
-       output$facetline <- renderPlotly({
-         
-         options(scipen = 999)
-         figure <- months_tests %>% filter(state_name == input$statename) %>%
-           
-           ggplot(aes(x = reorder(month, monthnum), y = tests)) +
-           geom_point(color = "steelblue") + xlab("Month") +
-           scale_y_log10() +
-           ylab("Cumulative Tests (log10)") + ggtitle("Total COVID-19 Tests") +
-           theme_minimal() +
-           theme(plot.title = element_text(hjust = 0.5))
-         
-         ggplotly(figure)
-         
-         
-       })
-     }
-  
+      
+      
+      
+    }
     
     
-  
     
     
-  }
-  
-  
-  
-  
   )
   
 }
-
-"selectin"
-
-
