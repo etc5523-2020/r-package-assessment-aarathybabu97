@@ -20,8 +20,3 @@ Displays the COVID-19 cases around the world and the testing rates in US states 
 \details{
 The parameters required for the function to display the global COVID-19 cases for each month is "world" along with monthlist where as parameters "usa" along with statelist displays the testing rates over the months in each state of US.
 }
-\examples{
-selectin("world",monthlist)
-selectin("usa",statelist)
-
-}

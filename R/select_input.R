@@ -9,25 +9,30 @@
 #' 
 #' @param choice The required list of possible choices of months (monthlist) and states in US (statelist), the user could select from to display either the table depicting figures on COVID cases worldwide or the testing rates in a state of US.
 #' 
-#'@examples selectin("world",monthlist)
-#'@examples selectin("usa",statelist)
 #' 
 #' @return The function deploys a shiny app which the user can interact with
-#'
+#' 
 #' @export
 selectin <- function(id,choice) {
   
- load("data/allstates.RData")
+  
+ load("data/allstates.rda")
   #allstates <- readr::read_csv(here::here("data/allstates.csv"))
   statesabb <- USAboundaries::state_codes
   #ccode <- readr::read_csv(here::here("data/codes.csv"))
-load("data/ccode.RData")
+load("data/ccode.rda")
   df <-
     tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
-  df$country <- dplyr::recode(df$country,
-                              "Curaçao" = "Curacao",
-                              "Côte d’Ivoire" = "Cote dIvoire")
   
+ 
+
+ 
+  Encoding(df) <- "latin1"
+  
+
+  df$country <- textclean::replace_non_ascii(df$country, remove.nonconverted = FALSE)
+  
+
   cols2 <-
     c(
       "#233d4d",

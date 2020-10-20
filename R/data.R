@@ -36,10 +36,14 @@
 #'    \item{deathProbable}{Total fatalities with probable COVID-19 case diagnosis }
 #'    \item{deathIncrease}{Daily increase in death, calculated from the previous day’s value.}
 #'    \item{recovered}{Total number of people that are identified as recovered from COVID-19.}
+#'    \item{covidTrackingProjectPreferredTotalTestUnits}{Label indicating which units The COVID Tracking Project prefers for each state’s “New tests” chart and on the state’s history page on source website.}
 #'    \item{dataQualityGrade}{The COVID Tracking Project grade of the completeness of the data reporting by a state.}
 #'    \item{date}{Date on which data was collected by The COVID Tracking Project.}
+#'    \item{lastUpdateEt}{Date and time in Eastern time the state or territory last updated the data.}
 #'    \item{totalTestResultsIncrease}{Daily increase in totalTestResults, calculated from the previous days value. }
 #'    \item{state}{Two-letter abbreviation for the state or territory.}
+#'    \item{states}{The number of states and territories included in the US dataset for each day.}
+#'    \item{totalTestResults}{estimate of national testing performance.}
 #'   
 #' 
 #' 
@@ -60,7 +64,7 @@
 #'  
 #' }
 #' 
-"ccode"
+"codes"
 
 
 

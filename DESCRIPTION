@@ -22,6 +22,8 @@ Imports:
     dplyr 
 Depends: 
     shiny,
+    R (>= 3.5.0),
+    textclean,
     tidyverse,
     shinythemes,
     lubridate,
