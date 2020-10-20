@@ -3,7 +3,7 @@ title: "uscovid : COVID-19 in United States"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{uscovid}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
 
