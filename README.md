@@ -4,7 +4,8 @@
 [![R build status](https://github.com/etc5523-2020/r-package-assessment-aarathybabu97/workflows/R-CMD-check/badge.svg)](https://github.com/etc5523-2020/r-package-assessment-aarathybabu97/actions)
 <!-- badges: end -->
 
-The goal of _uscovid_ is to ...
+
+The goal of _uscovid_ package is to launch the enclosed [shiny web application](https://aarathybabu.shinyapps.io/covid/) on COVID-19 in United States. The web application showcases an overview of the data on COVID-19 on a global scale and also explores the test results as well as different dimensions of the effect of the pandemic in the United States of America. The package makes it possible for a user to launch the app locally which would aid the user in reproducing the web application. 
 
 ## Installation
 
