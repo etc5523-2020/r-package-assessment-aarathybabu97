@@ -24,7 +24,7 @@ selectin <- function(id,choice) {
   #ccode <- readr::read_csv(here::here("data/codes.csv"))
 #load("data/ccode.rda")
 #load(file = "data/tests.rda")
-l#oad(file = "data/positive.rda")
+#load(file = "data/positive.rda")
   df <-tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
   
  
@@ -34,7 +34,7 @@ l#oad(file = "data/positive.rda")
 
   
 
-  df$country <- textclean::replace_non_ascii(df$country, remove.nonconverted = FALSE)
+df$country <- textclean::replace_non_ascii(df$country, remove.nonconverted = FALSE)
   
 positive_cases <- uscovid::positive_cases
 months_tests <- uscovid::months_tests
