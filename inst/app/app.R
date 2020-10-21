@@ -140,22 +140,22 @@ labels <- sprintf("<strong>%s</strong><br/>%g Cases",
 
 
 
-map <- leaflet::leaflet(states, options = leafletOptions(minZoom = 3)) %>%
-  setView(-110.233256, 40, 4) %>%
-  addProviderTiles("MapBox",
-                   options = providerTileOptions(
+map <- leaflet::leaflet(states, options = leaflet::leafletOptions(minZoom = 3)) %>%
+  leaflet::setView(-110.233256, 40, 4) %>%
+  leaflet::addProviderTiles("MapBox",
+                   options = leaflet::providerTileOptions(
                      id = "mapbox.light",
                      accessToken = Sys.getenv('MAPBOX_ACCESS_TOKEN')
                    )) %>%
   
-  addPolygons(
+  leaflet::addPolygons(
     fillColor = ~ pal(density),
     weight = 2,
     opacity = 1,
     color = "white",
     dashArray = "3",
     fillOpacity = 0.7,
-    highlight = highlightOptions(
+    highlight = leaflet::highlightOptions(
       weight = 5,
       color = "#666",
       dashArray = "",
@@ -163,13 +163,13 @@ map <- leaflet::leaflet(states, options = leafletOptions(minZoom = 3)) %>%
       bringToFront = TRUE
     ),
     label = labels,
-    labelOptions = labelOptions(
+    labelOptions = leaflet::labelOptions(
       style = list("font-weight" = "normal", padding = "3px 8px"),
       textsize = "15px",
       direction = "auto"
     )
   ) %>%
-  addLegend(
+  leaflet::addLegend(
     pal = pal,
     values = ~ density,
     opacity = 0.9,
@@ -181,7 +181,7 @@ map <- leaflet::leaflet(states, options = leafletOptions(minZoom = 3)) %>%
 ui <- fluidPage(
 
   navbarPage(
-    theme = shinytheme("superhero"),
+    theme = shinythemes::shinytheme("superhero"),
     "COVID-19 in United States",
     id = "main",tabPanel("About",fluidRow(
       h2("About the App"),
@@ -221,7 +221,7 @@ ui <- fluidPage(
           ),
           mainPanel( 
             
-            reactableOutput("table"),
+            reactable::reactableOutput("table"),
             h4("Some Info on the Selected Country"),
             verbatimTextOutput("selected")
           )))
@@ -233,7 +233,7 @@ ui <- fluidPage(
         headerPanel("Coronavirus in United States"),
         fluidRow(
 
-          leafletOutput("leafmap", height = "600px")),
+          leaflet::leafletOutput("leafmap", height = "600px")),
         fluidRow(
           column(6,
             sinput(
@@ -246,9 +246,9 @@ ui <- fluidPage(
               style = "text-align:justify;color:black;background-color:white;padding:15px;border-radius:15px"  ),
             br(),
             
-            plotlyOutput("facetline")),
+            plotly::plotlyOutput("facetline")),
           column(6,
-                 plotlyOutput("sub_category"),
+                 plotly::plotlyOutput("sub_category"),
             br(),
             p("In US, California has the most number of COVID-19 positive cases, followed by Texas and Florida.Since the occurence of first COVID-19 positive case, the US states started testing more throughout the months.",
               style = "text-align:justify;color:black;background-color:white;padding:15px;border-radius:15px"  ),
@@ -297,7 +297,7 @@ server <- function(input, output, session) {
     source <- printext("Image Source: The Economic Times")
     source})
   
-  output$table <- renderReactable({
+  output$table <- reactable::renderReactable({
     
     newworld <-   world %>%
       filter(month==input$monthname)%>%
@@ -312,14 +312,14 @@ server <- function(input, output, session) {
       selection = "single",
       defaultSorted = "Confirmed",
       defaultSortOrder = "desc",
-      defaultColDef = colDef(headerClass = "header", align = "left"),
+      defaultColDef = reactable::colDef(headerClass = "header", align = "left"),
       columns = list(
-        country = colDef(
+        country = reactable::colDef(
           name = "Country",
           width = 150,
           filterable = TRUE
         ) ,
-        Confirmed = colDef(
+        Confirmed = reactable::colDef(
           name = "Confirmed Cases",
           cell = function(value) {
             width <- paste0(value * 100 / max(world$Confirmed), "%")
@@ -338,7 +338,7 @@ server <- function(input, output, session) {
             div(class = "bar-cell", span(class = "number", value), bar)
           }
         ),
-        Recovered = colDef(
+        Recovered = reactable::colDef(
           name = "No. of Recovered Cases",
           cell = function(value) {
             width <-
@@ -358,7 +358,7 @@ server <- function(input, output, session) {
             div(class = "bar-cell", span(class = "number", value), bar)
           }
         ),
-        Deaths = colDef(
+        Deaths = reactable::colDef(
           name = "No. of Deaths",
           cell = function(value) {
             width <-
@@ -384,7 +384,7 @@ server <- function(input, output, session) {
     
   })
   
-  selected <- reactive(getReactableState("table", "selected"))
+  selected <- reactive(reactable::getReactableState("table", "selected"))
   
   
   output$selected <- renderText({
@@ -438,13 +438,13 @@ server <- function(input, output, session) {
     
   })
   
-  output$leafmap <- renderLeaflet({
+  output$leafmap <- leaflet::renderLeaflet({
     map
     
   })
   
   
-  output$facetline <- renderPlotly({
+  output$facetline <- plotly::renderPlotly({
     options(scipen = 999)
     figure <-
       months_tests %>% filter(state_name == input$statename) %>%
@@ -460,7 +460,7 @@ server <- function(input, output, session) {
     
   })
   output$tests <- renderText({
-    d <- event_data("plotly_click")
+    d <- plotly::event_data("plotly_click")
     if (is.null(d))
       return(NULL)
     
@@ -469,8 +469,8 @@ server <- function(input, output, session) {
     
   })
   
-  output$sub_category <- renderPlotly({
-    d <- event_data("plotly_click")
+  output$sub_category <- plotly::renderPlotly({
+    d <- plotly::event_data("plotly_click")
     if (is.null(d))
       return(NULL)
     
@@ -503,7 +503,7 @@ server <- function(input, output, session) {
       scale_fill_manual(values = cols2)+
       ylim(0, 100) +
       theme(plot.title = element_text(hjust = 0.5)) 
-    ggplotly(fig2)
+    plotly::ggplotly(fig2)
   })
   
   

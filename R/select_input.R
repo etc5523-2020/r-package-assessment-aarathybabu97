@@ -23,13 +23,13 @@ selectin <- function(id,choice) {
   statesabb <- USAboundaries::state_codes
   #ccode <- readr::read_csv(here::here("data/codes.csv"))
 load("data/ccode.rda")
-  df <-
-    tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
+  df <-tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
   
  
 
  
-  Encoding(df) <- "latin1"
+  Encoding(df$country) <- "latin1"
+
   
 
   df$country <- textclean::replace_non_ascii(df$country, remove.nonconverted = FALSE)
@@ -198,8 +198,8 @@ load("data/ccode.rda")
         else
           sinput(id, statelist)),
         mainPanel (
-          reactableOutput("table"),
-          plotlyOutput("facetline"),
+          reactable::reactableOutput("table"),
+          plotly::plotlyOutput("facetline"),
           plotOutput("chart")
           
         )
@@ -215,11 +215,11 @@ load("data/ccode.rda")
       
       if (pr == "world")
       {
-        output$table <- renderReactable({
+        output$table <- reactable::renderReactable({
           newworld <-   world %>%
             filter(month == input$world) %>%
             select(-month)
-          reactable(
+          reactable::reactable(
             newworld,
             resizable = TRUE,
             showPageSizeOptions = TRUE,
@@ -229,14 +229,14 @@ load("data/ccode.rda")
             #selection = "single",
             defaultSorted = "Confirmed",
             defaultSortOrder = "desc",
-            defaultColDef = colDef(headerClass = "header", align = "left"),
+            defaultColDef = reactable::colDef(headerClass = "header", align = "left"),
             columns = list(
-              country = colDef(
+              country = reactable::colDef(
                 name = "Country",
                 width = 150,
                 filterable = TRUE
               ) ,
-              Confirmed = colDef(
+              Confirmed = reactable::colDef(
                 name = "Confirmed Cases",
                 cell = function(value) {
                   width <- paste0(value * 100 / max(world$Confirmed), "%")
@@ -255,7 +255,7 @@ load("data/ccode.rda")
                   div(class = "bar-cell", span(class = "number", value), bar)
                 }
               ),
-              Recovered = colDef(
+              Recovered = reactable::colDef(
                 name = "No. of Recovered Cases",
                 cell = function(value) {
                   width <-
@@ -275,7 +275,7 @@ load("data/ccode.rda")
                   div(class = "bar-cell", span(class = "number", value), bar)
                 }
               ),
-              Deaths = colDef(
+              Deaths = reactable::colDef(
                 name = "No. of Deaths",
                 cell = function(value) {
                   width <-
@@ -307,7 +307,7 @@ load("data/ccode.rda")
       }
       if (pr == "usa")
       {
-        output$facetline <- renderPlotly({
+        output$facetline <- plotly::renderPlotly({
           options(scipen = 999)
           figure <-
             months_tests %>% filter(state_name == input$usa) %>%
@@ -319,7 +319,7 @@ load("data/ccode.rda")
             theme_minimal() +
             theme(plot.title = element_text(hjust = 0.5))
           
-          ggplotly(figure)
+          plotly::ggplotly(figure)
           
           
         })

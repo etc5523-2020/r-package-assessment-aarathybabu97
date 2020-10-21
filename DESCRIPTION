@@ -20,16 +20,16 @@ Imports:
     tidycovid19,
     sf,
     plotly,
-    textclean
+    textclean,
+    htmltools,
+    leaflet,
+    reactable,
+    shinythemes
 Depends: 
     shiny,
     R (>= 3.5.0),
     tidyverse,
-    shinythemes,
     lubridate,
-    htmltools,
-    leaflet,
-    reactable,
     dplyr
 Suggests: 
     testthat,
@@ -37,6 +37,6 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Remotes:
-    github::joachim-gassen/tidycovid19,
+    github::joachim-gassen/tidycovid19
     github::nset-ornl/wbstats
 URL: https://github.com/etc5523-2020/r-package-assessment-aarathybabu97
