@@ -17,14 +17,15 @@ Imports:
     readr,
     USAboundaries,
     geojsonR,
-    tidycovid19,
     sf,
     plotly,
     textclean,
     htmltools,
     leaflet,
     reactable,
-    shinythemes
+    shinythemes,
+    tidycovid19,
+    wbstats
 Depends: 
     shiny,
     R (>= 3.5.0),
