@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • uscovid</title>
+<title>Data on the COVID-19 pandemic for the US and individual states. — months_tests • uscovid</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Data on the COVID-19 pandemic for the US and individual states. — months_tests" />
+<meta property="og:description" content="The dataset contains monthly test data on the COVID-19 pandemic for the US on individual state level ." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,84 +106,39 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Data on the COVID-19 pandemic for the US and individual states.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/etc5523-2020/r-package-assessment-aarathybabu97/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>months_tests.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>The dataset contains monthly test data on the COVID-19 pandemic for the US on individual state level .</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='va'>months_tests</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="choosevar.html">choosevar()</a></code> </p>
-        </td>
-        <td><p>Selects variable after filtering observations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="codes.html">codes</a></code> </p>
-        </td>
-        <td><p>Data on the names of countries and its two digit state code</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="launch_app.html">launch_app()</a></code> </p>
-        </td>
-        <td><p>COVID-19 in United States</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="months_tests.html">months_tests</a></code> </p>
-        </td>
-        <td><p>Data on the COVID-19 pandemic for the US and individual states.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="positive_cases.html">positive_cases</a></code> </p>
-        </td>
-        <td><p>Data on the cumulative COVID-19 positive cases for the US and individual states.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="printext.html">printext()</a></code> </p>
-        </td>
-        <td><p>Print Strings</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="selectin.html">selectin()</a></code> </p>
-        </td>
-        <td><p>Display of COVID-19 cases around the world and the testing rates in USA</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sinput.html">sinput()</a></code> </p>
-        </td>
-        <td><p>User controlled drop down menu</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 402  rows and 6 variables:</p><dl>
+<dt>month</dt><dd><p>Month</p></dd>
+
+<dt>monthnum</dt><dd><p>Month of the year</p></dd>
+<dt>state_name</dt><dd><p>Name of the state in US.</p></dd>
+<dt>tests</dt><dd><p>Number of tests conducted</p></dd>
+<dt>test_positive</dt><dd><p>Number of tests that came positive.</p></dd>
+<dt>test_negative</dt><dd><p>Number of tests that came negative.</p></dd>
+
+
+</dl>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://covidtracking.com/data/download'>https://covidtracking.com/data/download</a></p>
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
