@@ -20,9 +20,9 @@ selectin <- function(id,choice) {
   
 # load("data/allstates.rda")
   #allstates <- readr::read_csv(here::here("data/allstates.csv"))
-  statesabb <- USAboundaries::state_codes
+  #statesabb <- USAboundaries::state_codes
   #ccode <- readr::read_csv(here::here("data/codes.csv"))
-load("data/ccode.rda")
+#load("data/ccode.rda")
 load(file = "data/tests.rda")
 load(file = "data/positive.rda")
   df <-tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
