@@ -28,7 +28,7 @@ devtools::install_github("etc5523-2020/r-package-assessment-aarathybabu97")
 
 # Usage 
 
-The primary purpose of the **uscovid** package is to launch the enclosed web application locally.
+The primary purpose of the **uscovid** package is to launch the enclosed web application locally. 
 
 ## Functions and Datasets in package
 
