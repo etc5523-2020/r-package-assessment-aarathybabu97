@@ -2,7 +2,7 @@
 title: "uscovid : COVID-19 in United States"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{uscovid}
+  %\VignetteIndexEntry{uscovid : COVID-19 in United States}
   %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
@@ -83,5 +83,20 @@ choosevar(codes,Afghanistan,Code)
 The function sinput() returns a drop down menu with values in "monthlist" as options and "select a month" as its label compatible with shiny r package where as printext() prints "text to be printed".
 In the above example, choosevar() returns the code of Afghanistan. 
 
+# About the App
+
+There are three main topic the web application aims to showcase,The confirmed cases, deaths and recoveries because of COVID-19 on a global scale,the testing streak as well as its results in the states of United States over the months. It always shows how different groups of population in the US are affected by the pandemic. 
+
+## COVID-19 Worldwide
+
+An interactive table is employed to showcase the repercussions of COVID-19. The table represents the worldwide COVID-19 cases,deaths and recoveries each month and allows the user to search for the country and month of their choice as well as arrange them in the order using the parameters of their choice. For example, Confirmed Cases. User can also view some information like life expectancy, population density etc on the countries by selecting them.
+
+## COVID-19 Testing
+
+COVID-19 cases in the US is explored by an interactive map showcases the total number of positive cases in each state of United States by hovering over each state where as the point graph depicts the COVID-19 tests conducted in each state during a month.The user can see testing streak of each state and the percentage of positive cases in that state and during a particular month by clicking on its corresponding point in a scatterplot figure. 
+
+## Demographic Trends
+
+A chart representing the gender,racial identity as well as the age group under which the COVID-19 positive patients fall is employed to highlight the trends in COVID positive cases. The user is allowed to explore the demographic trends in the COVID-19 positive cases by choosing a parameter. 
 
 

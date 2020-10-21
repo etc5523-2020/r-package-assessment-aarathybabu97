@@ -20,7 +20,8 @@ devtools::install_github("etc5523-2020/r-package-assessment-aarathybabu97")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(yourpkg)
-## basic example code
+library(uscovid)
+launch_app()
+
 ```
 
