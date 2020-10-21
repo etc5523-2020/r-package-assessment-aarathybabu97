@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Selects variable after filtering observations — choosevar • uscovid</title>
+<title>Data on the cumulative COVID-19 positive cases for the US and individual states. — positive_cases • uscovid</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Selects variable after filtering observations — choosevar" />
-<meta property="og:description" content="Selects a particular variable in a data frame after filtering observations to match a particular value.The function is relative to the shiny app enclosed in the package, therefore it is not advisable for the package user to interact with it." />
+<meta property="og:title" content="Data on the cumulative COVID-19 positive cases for the US and individual states. — positive_cases" />
+<meta property="og:description" content="The dataset contains data on the cumulative COVID-19 positive cases for the US on individual state level ." />
 
 
 
@@ -108,37 +108,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Selects variable after filtering observations</h1>
-    <small class="dont-index">Source: <a href='https://github.com/etc5523-2020/r-package-assessment-aarathybabu97/blob/master/R/serverfunction.R'><code>R/serverfunction.R</code></a></small>
-    <div class="hidden name"><code>choosevar.Rd</code></div>
+    <h1>Data on the cumulative COVID-19 positive cases for the US and individual states.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/etc5523-2020/r-package-assessment-aarathybabu97/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>positive_cases.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Selects a particular variable in a data frame after filtering observations to match a particular value.The function is relative to the shiny app enclosed in the package, therefore it is not advisable for the package user to interact with it.</p>
+    <p>The dataset contains data on the cumulative COVID-19 positive cases for the US on individual state level .</p>
     </div>
 
-    <pre class="usage"><span class='fu'>choosevar</span><span class='op'>(</span><span class='va'>frame</span>, <span class='va'>filterval</span>, <span class='va'>variable</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>positive_cases</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>frame</th>
-      <td><p>The chosen data frame.</p></td>
-    </tr>
-    <tr>
-      <th>filterval</th>
-      <td><p>The value filtered in the ID observation of the data frame.</p></td>
-    </tr>
-    <tr>
-      <th>variable</th>
-      <td><p>The data frame variable to be selected.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with the chosen variable with filtered values.</p>
+    <p>A data frame with 50 rows and 2 variables:</p><dl>
+
+<dt>state_name</dt><dd><p>Name of the state in US.</p></dd>
+<dt>positive_cases</dt><dd><p>Number of COVID-19 positive cases.</p></dd>
+
+
+</dl>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://covidtracking.com/data/download'>https://covidtracking.com/data/download</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
