@@ -18,7 +18,7 @@ devtools::install_github("etc5523-2020/r-package-assessment-aarathybabu97")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+
 
 ``` r
 library(uscovid)
@@ -26,3 +26,12 @@ launch_app()
 
 ```
 
+## If issues arise during installation 
+
+If any issues arise during installation of the package regarding the tidycovid19 and its dependent wbstats package, it is advisable to try installing these locally first as wbstats package is temporarily taken off from CRAN. 
+
+``` r
+remotes::install_github("joachim-gassen/tidycovid19")
+remotes::install_github('nset-ornl/wbstats')
+
+```
