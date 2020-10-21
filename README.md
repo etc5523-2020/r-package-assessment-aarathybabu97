@@ -26,7 +26,7 @@ library(uscovid)
 launch_app()
 
 ```
-
+ 
 The function _selectin()_ displays the COVID-19 cases around the world and the testing rates in US states depending on the parameter selected.
 
 ```r
