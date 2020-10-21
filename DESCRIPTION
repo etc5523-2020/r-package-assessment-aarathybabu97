@@ -33,7 +33,7 @@ Depends:
     lubridate,
     dplyr
 Suggests: 
-    testthat,
+    testthat, 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
