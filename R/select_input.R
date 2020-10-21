@@ -18,11 +18,13 @@
 selectin <- function(id,choice) {
   
   
- load("data/allstates.rda")
+# load("data/allstates.rda")
   #allstates <- readr::read_csv(here::here("data/allstates.csv"))
   statesabb <- USAboundaries::state_codes
   #ccode <- readr::read_csv(here::here("data/codes.csv"))
 load("data/ccode.rda")
+load(file = "data/tests.rda")
+load(file = "data/positive.rda")
   df <-tidycovid19::download_merged_data(cached = TRUE, silent = TRUE)
   
  
@@ -109,43 +111,7 @@ load("data/ccode.rda")
     arrange(desc(Confirmed))
   a$id  <- 1:nrow(a)
   
-  
-  # map
-  
-  
 
-  
-  positive_cases <- allstates %>%
-    select(date, state, positive, positiveIncrease) %>%
-    group_by(state) %>%
-    filter(!is.na(positive)) %>%
-    summarise(positive_cases = max(positive)) %>%
-    ungroup() %>%
-    mutate(sum = sum(positive_cases))
-  
-  f_statesabb <- statesabb %>%
-    filter(jurisdiction_type == "state")
-  
-  positive_cases <- positive_cases %>%
-    left_join(f_statesabb, by = c("state" = "state_abbr")) %>%
-    filter(!is.na(state_name)) %>%
-    select(state_name, positive_cases)
-  
-  plot2 <- allstates %>%
-    left_join(f_statesabb, by = c("state" = "state_abbr")) %>%
-    filter(!is.na(state_name))
-  
-  months_tests <- plot2 %>%
-    mutate(month = month(date, label = T),
-           monthnum = month(date)) %>%
-    group_by(month, monthnum, state_name) %>%
-    filter(!is.na(positive)) %>%
-    summarise(
-      tests = max(totalTestResults, na.rm = T),
-      test_positive = max(positive, na.rm = T),
-      test_negative = max(negative, na.rm = T)
-    ) %>%
-    mutate(month = as.character(month))
   
   list <- world %>%
     ungroup() %>%

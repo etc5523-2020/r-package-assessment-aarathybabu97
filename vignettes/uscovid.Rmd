@@ -40,8 +40,9 @@ The primary purpose of the **uscovid** package is to launch the enclosed web app
 
 The datasets include,
 
-- **allstates**   : The dataset contains data on the COVID-19 pandemic for the US and individual states.
-- **codes**       : Data on the names of countries and its two digit state code.
+- **positive_cases**   : The dataset contains data on the cumulative COVID-19 positive cases for the US on individual state level .
+- **codes**            : Data on the names of countries and its two digit state code.
+- **months_tests**     : The dataset contains monthly test data on the COVID-19 pandemic for the US on individual state level
 
 ### Launching the App
 
