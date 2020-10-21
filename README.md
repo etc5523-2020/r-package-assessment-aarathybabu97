@@ -21,8 +21,49 @@ devtools::install_github("etc5523-2020/r-package-assessment-aarathybabu97")
 
 
 ``` r
+#launching the app
 library(uscovid)
 launch_app()
+
+```
+
+The function _selectin()_ displays the COVID-19 cases around the world and the testing rates in US states depending on the parameter selected.
+
+```r
+# Displays the COVID-19 cases around the world 
+selectin("world",monthlist)
+
+# Display the testing rates in US states depending on the parameter selected
+selectin("usa",statelist)
+
+```
+
+### Other functions 
+
+
+``` r
+# creates a drop down menu from which values passed by user can be selected
+sinput("monthname","select a month",monthlist)
+
+# prints text
+printext("text to be printed")
+
+# returns a tibble with code of Afghanistan
+choosevar(codes,Afghanistan,Code)
+
+```
+
+### Available datasets
+
+``` r
+# data on the cumulative COVID-19 positive cases for the US states
+uscovid::positive_cases
+
+# Data on the names of countries and its two digit state code
+uscovid::codes
+
+# monthly test data on the COVID-19 pandemic for the US states
+uscovid::months_tests
 
 ```
 
