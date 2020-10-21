@@ -38,6 +38,8 @@ The primary purpose of the **uscovid** package is to launch the enclosed web app
 - **printext()**  : Prints strings as texts.
 - **choosevar()** : Selects a particular variable in a data frame after filtering observations to match a particular value.
 
+The functions choosevar() and sinput() are relative to the shiny app enclosed in the package,therefore not available for user interaction. 
+
 The datasets include,
 
 - **positive_cases**   : The dataset contains data on the cumulative COVID-19 positive cases for the US on individual state level .
