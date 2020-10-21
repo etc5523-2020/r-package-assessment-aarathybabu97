@@ -3,7 +3,7 @@
 \docType{data}
 \name{codes}
 \alias{codes}
-\title{Data on the countries of the world and its two digit state code}
+\title{Data on the names of countries and its two digit state code}
 \format{
 A data frame with 249  rows and 2 variables:
 \describe{
@@ -16,6 +16,6 @@ A data frame with 249  rows and 2 variables:
 codes
 }
 \description{
-Data on the countries of the world and its two digit state code
+Data on the names of countries and its two digit state code
 }
 \keyword{datasets}

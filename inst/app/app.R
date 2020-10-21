@@ -55,9 +55,9 @@ allworld <- df %>%
 
 world <-  allworld %>%
   
-  group_by(country,month) %>%
-  filter(!is.na(confirmed)) %>%
-  summarise(
+  dplyr::group_by(country,month) %>%
+  dplyr::filter(!is.na(confirmed)) %>%
+  dplyr::summarise(
     Confirmed = max(confirmed),
     Recovered = max(recovered),
     Deaths = max(deaths)
@@ -67,15 +67,15 @@ world <-  allworld %>%
 
 
 a <-  allworld %>%
-  group_by(country,month,
+  dplyr::group_by(country,month,
            life_expectancy,
            income,
            region,
            pop_density,
            population,
            gdp_capita) %>%
-  filter(!is.na(confirmed)) %>%
-  summarise(
+  dplyr::filter(!is.na(confirmed)) %>%
+  dplyr::summarise(
     Confirmed = max(confirmed),
     Recovered = max(recovered),
     Deaths = max(deaths)
@@ -90,9 +90,9 @@ a$id  <- 1:nrow(a)
 states <- here::here("extdata/us.geojson") %>% sf::st_read()
 
 positive_cases <- allstates %>%
-  select(date, state, positive, positiveIncrease) %>%
-  group_by(state) %>%
-  filter(!is.na(positive)) %>%
+  dplyr::select(date, state, positive, positiveIncrease) %>%
+  dplyr::group_by(state) %>%
+  dplyr::filter(!is.na(positive)) %>%
   summarise(positive_cases = max(positive)) %>%
   ungroup() %>%
   mutate(sum = sum(positive_cases))

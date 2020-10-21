@@ -28,9 +28,22 @@ devtools::install_github("etc5523-2020/r-package-assessment-aarathybabu97")
 
 # Usage 
 
-The primary purpose of the **uscovid** package is to launch the enclosed web application locally. 
+The primary purpose of the **uscovid** package is to launch the enclosed web application locally.
 
-## Launching the App
+## Functions and Datasets in package
+
+- **launch_app()**  : Launches the shiny web application enclosed with the package.
+- **selectin()**  : Displays the COVID-19 cases around the world and the testing rates in US states depending on the parameter selected.
+- **sinput()**    : Calls selectInput() function from shiny r package where necessary which in turn creates a drop down menu from which values can be selected. 
+- **printext()**  : Prints strings as texts.
+- **choosevar()** : Selects a particular variable in a data frame after filtering observations to match a particular value.
+
+The datasets include,
+
+- **allstates**   : The dataset contains data on the COVID-19 pandemic for the US and individual states.
+- **codes**       : Data on the names of countries and its two digit state code.
+
+### Launching the App
 
 The web application can be launched in the following way,
 
@@ -46,6 +59,29 @@ launch_app()
 
 The function,**launch_app()** from the package, launches the web application *COVID-19 in United States*. The app aims to display the figures on confirmed cases, deaths and recoveries around the World with a focus on United States, which is one of the worst affected countries in the world. It also showcases the testing rate over the months in each state of US as well as the demographic trends of COVID-19 positive cases in US. 
 
+### Usage of Other functions 
+
+```{r selectin,eval=FALSE}
+
+selectin("world",monthlist)
+selectin("usa",statelist)
+
+
+``` 
+
+
+The function deploys a shiny app which the user can interact with. The parameters required for the function to display the global COVID-19 cases for each month is "world" along with monthlist where as parameters "usa" along with statelist displays the testing rates over the months in each state of US.
+
+```{r sinput,eval=FALSE}
+
+sinput("monthname","select a month",monthlist)
+printext("text to be printed")
+choosevar(codes,Afghanistan,Code)
+
+``` 
+
+The function sinput() returns a drop down menu with values in "monthlist" as options and "select a month" as its label compatible with shiny r package where as printext() prints "text to be printed".
+In the above example, choosevar() returns the code of Afghanistan. 
 
 
 

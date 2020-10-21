@@ -16,23 +16,24 @@ Imports:
     here,
     readr,
     USAboundaries,
-    tidycovid19,
     geojsonR,
     sf,
-    dplyr 
+    plotly,
+    textclean
 Depends: 
     shiny,
     R (>= 3.5.0),
-    textclean,
     tidyverse,
     shinythemes,
     lubridate,
     htmltools,
     leaflet,
     reactable,
-    plotly
+    dplyr
 Suggests: 
     testthat,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Remotes:
+    joachim-gassen/tidycovid19
