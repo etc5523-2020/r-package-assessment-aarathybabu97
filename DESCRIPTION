@@ -17,6 +17,7 @@ Imports:
     readr,
     USAboundaries,
     geojsonR,
+    tidycovid19,
     sf,
     plotly,
     textclean
@@ -36,5 +37,5 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Remotes:
-    joachim-gassen/tidycovid19
+    github::joachim-gassen/tidycovid19
 URL: https://github.com/etc5523-2020/r-package-assessment-aarathybabu97
