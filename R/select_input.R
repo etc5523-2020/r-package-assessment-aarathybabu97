@@ -8,8 +8,7 @@
 #' @param id The name of the figures to be displayed in string format. For example, "world" or "usa"
 #' 
 #' @param choice The required list of possible choices of months (monthlist) and states in US (statelist), the user could select from to display either the table depicting figures on COVID cases worldwide or the testing rates in a state of US.
-#' @import tidycovid19
-#' @importFrom magrittr %>%
+#' 
 #' @importFrom dplyr filter select mutate %>% rename group_by summarise full_join left_join 
 
 #' 
